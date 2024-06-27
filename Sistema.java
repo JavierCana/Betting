@@ -57,35 +57,43 @@ public class Sistema {
     public static void realizarSurebet(double[] cuotas,boolean[] isFreebet, double betFijaCuota1){
         double sumInversasCuotas = 1/cuotas[0];
         double apuestaTotal= isFreebet[0] ? 0.0 : betFijaCuota1;
-        double apuestaTotalFreebets = isFreebet[0] ? betFijaCuota1 : 0.0;
+        double apuestaTotalFreebets = isFreebet[0] ? betFijaCuota1 :  0.0;
         double[] apuestas = new double[cuotas.length];
         // Realizar e imprimir calculos
         apuestas[0] = betFijaCuota1;
         for (int i = 1; i < cuotas.length; i++) {
-            if(isFreebet[i]){
-                apuestas[i] = (betFijaCuota1 * cuotas[0]) / (cuotas[i]-1);
-                apuestaTotalFreebets+=apuestas[i];
+            if(!isFreebet[i]){
+                apuestas[i] = (betFijaCuota1 * cuotas[0]) / cuotas[i];
+                apuestaTotal+= apuestas[i];
             }
             else{
-                apuestas[i] = (betFijaCuota1 * cuotas[0]) / cuotas[i];
-                apuestaTotal += apuestas[i];
+                apuestas[i] = (betFijaCuota1 * cuotas[0]) / (cuotas[i]-1);
+                apuestaTotalFreebets += apuestas[i];
             }
-            sumInversasCuotas += 1/cuotas[i];
+            sumInversasCuotas+= 1/cuotas[i];
         }
+         // Calcular las apuestas necesarias para las otras cuotas
         imprimirMensaje(apuestaTotal,apuestaTotalFreebets,isFreebet,apuestas,cuotas);
         if(sumInversasCuotas < 1){ System.out.println("!!!! ES UNA SUREBET, SI NO HAY LIMITES NO USES FREEBETS Y APUESTA FUERTE (A NO SER QUE QUIERAS BLANQUEAR) !!!!");}
+        double porcentajeGanancia = (1 / sumInversasCuotas - 1) * 100;
+        System.out.printf("Porcentaje de ganancia: %.2f%%\n", porcentajeGanancia);
     }
+
     // *****************************************************************************************
     // *                              imprimirMensaje                                          *
     // *****************************************************************************************
-    // Imprime las apuestas a realizar indicando el monto total gastado, beneficios, freebets usas
+    // Imprime las apuestas a realizar indicando el monto total gastado, beneficios, freebets usadas...
     // *****************************************************************************************
     private static void imprimirMensaje(double apuestaDinero, double apuestaFree, boolean[]isFreebet, double[]apuestas,double[]cuotas){
         System.out.println("----------------------");
         System.out.printf("Apuesta Total de dinero: %.2f y de FREEBETS %.2f\n",apuestaDinero,apuestaFree);
         for (int i = 0; i < cuotas.length; i++){
-            String resultado = isFreebet[i] ? "Apostar a cuota %.2f cantidad %.2f con profit %.3f\n" : "Apostar a cuota %.2f cantidad (de FREEBETS) %.2f con profit %.3f\n";
-            System.out.printf(resultado, cuotas[i], apuestas[i], apuestas[i] * cuotas[i] - apuestaDinero);
+            if(isFreebet[i]){
+                System.out.printf("Apostar a cuota %.2f cantidad (de FREEBETS) %.2f con profit %.3f\n",cuotas[i], apuestas[i], apuestas[i] * (cuotas[i]-1) - apuestaDinero);
+            }
+            else{
+                System.out.printf("Apostar a cuota %.2f cantidad %.2f con profit %.3f\n",cuotas[i], apuestas[i], apuestas[i] * cuotas[i] - apuestaDinero);
+            }
         }
         System.out.println("----------------------");
     }
