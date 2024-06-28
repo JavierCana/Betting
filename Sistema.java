@@ -31,14 +31,16 @@ public class Sistema {
             }
 
             // Preguntar la operacion a realizar
+            System.out.println("----------------------");
             System.out.println("Seleccione la operación a realizar:");
             System.out.println("0: Surebet (ganar igual en ambos lados) con cantidad fija a una cuota");
+            // System.out.println("1: Apuesta al probable (Ganar todo en 1er caso y en el resto recuperar inversión)");
             System.out.println("100: DETENER EJECUCIÓN (fin)");
+            System.out.println("----------------------");
             int accion = input.nextInt();
             switch (accion) {
                 case SUREBET:
                     System.out.println("Indica la cantidad fija de dinero a la primera cuota p.e 10,0");
-                    // realizarSurebet(cuotas,isFreebet,input.nextDouble());
                     realizarSurebet(cuotas,isFreebet,input.nextDouble());
                     break;
                 case FIN:
@@ -50,9 +52,9 @@ public class Sistema {
         }
     }
     // *****************************************************************************************
-    // *                              [COMENTARIO BONITO]                                      *
+    // *                              realizarSurebet                                          *
     // *****************************************************************************************
-    
+    // Realiza la surebet tradicional que hicimos hasta ahora, diciendo cuanto apostar al primero y ajustar
     // *****************************************************************************************
     public static void realizarSurebet(double[] cuotas,boolean[] isFreebet, double betFijaCuota1){
         double sumInversasCuotas = 1/cuotas[0];
