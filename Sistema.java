@@ -63,13 +63,14 @@ public class Sistema {
         double[] apuestas = new double[cuotas.length];
         // Realizar e imprimir calculos
         apuestas[0] = betFijaCuota1;
+        double gananciaPrimera = isFreebet[0] ? betFijaCuota1 * (cuotas[0]-1) : betFijaCuota1 * cuotas[0];
         for (int i = 1; i < cuotas.length; i++) {
             if(!isFreebet[i]){
-                apuestas[i] = (betFijaCuota1 * cuotas[0]) / cuotas[i];
+                apuestas[i] = gananciaPrimera / cuotas[i];
                 apuestaTotal+= apuestas[i];
             }
             else{
-                apuestas[i] = (betFijaCuota1 * cuotas[0]) / (cuotas[i]-1);
+                apuestas[i] = gananciaPrimera / (cuotas[i]-1);
                 apuestaTotalFreebets += apuestas[i];
             }
             sumInversasCuotas+= 1/cuotas[i];
