@@ -51,11 +51,11 @@ public class Sistema {
             }
         }
     }
-    // *****************************************************************************************
+    // *******************************
     // *                              realizarSurebet                                          *
-    // *****************************************************************************************
+    // *******************************
     // Realiza la surebet tradicional que hicimos hasta ahora, diciendo cuanto apostar al primero y ajustar
-    // *****************************************************************************************
+    // *******************************
     public static void realizarSurebet(double[] cuotas,boolean[] isFreebet, double betFijaCuota1){
         double sumInversasCuotas = 1/cuotas[0];
         double apuestaTotal= isFreebet[0] ? 0.0 : betFijaCuota1;
@@ -82,11 +82,11 @@ public class Sistema {
         System.out.printf("Porcentaje de ganancia: %.2f%%\n", porcentajeGanancia);
     }
 
-    // *****************************************************************************************
+    // *******************************
     // *                              imprimirMensaje                                          *
-    // *****************************************************************************************
+    // *******************************
     // Imprime las apuestas a realizar indicando el monto total gastado, beneficios, freebets usadas...
-    // *****************************************************************************************
+    // *******************************
     private static void imprimirMensaje(double apuestaDinero, double apuestaFree, boolean[]isFreebet, double[]apuestas,double[]cuotas){
         System.out.println("----------------------");
         System.out.printf("Apuesta Total de dinero: %.2f y de FREEBETS %.2f\n",apuestaDinero,apuestaFree);
